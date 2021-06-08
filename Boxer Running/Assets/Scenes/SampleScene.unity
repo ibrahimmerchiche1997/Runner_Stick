@@ -1621,7 +1621,7 @@ Transform:
   - {fileID: 497221485}
   - {fileID: 147010617}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &618462847
 GameObject:
@@ -4946,7 +4946,7 @@ GameObject:
   - component: {fileID: 2086551470}
   - component: {fileID: 2086551469}
   m_Layer: 0
-  m_Name: FPS
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5832,7 +5832,7 @@ PrefabInstance:
     - target: {fileID: 3579629645827624314, guid: c07c83eb3798b7f43984e20384c69dfc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3579629645827624314, guid: c07c83eb3798b7f43984e20384c69dfc,
         type: 3}
