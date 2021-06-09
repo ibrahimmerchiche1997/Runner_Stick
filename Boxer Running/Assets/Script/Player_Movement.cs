@@ -23,52 +23,56 @@ public class Player_Movement : MonoBehaviour
     public float t;
     public float le;
     public Camera main;
-
+    public Animator Run_Anim;
 
 
 
     // Update is called once per frame
     void Update()
     {
-        //Camera follower system
-        if (transform.position.x < 2f)
-            main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(2f, transform.position.y+1 , transform.position.z+t), le * Time.deltaTime);
-        else if (transform.position.x > 20)
-            main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(20f, transform.position.y+1 , transform.position.z +t), le * Time.deltaTime);
-        else
-            main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z + t), le * Time.deltaTime);
-
-        //check every frame if player is on ground or not
-        isGrounded = Physics.CheckSphere(_GroundCheck.position, _raduisCheckGround, Groundmask);
-        if (isGrounded && velocity.y < 0)
-            velocity.y = -2f;
-
-
-        //Move the player in forward direction automatically
-        controller.Move(transform.forward * _speed_Movement_forward * Time.deltaTime);
-
-
-        //Move the player in x axis
-        if (Input.touchCount > 0)
+        if (Effects_System.AllowToPlay)
         {
-            touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Moved)
+
+
+            //Camera follower system
+            if (transform.position.x < 0f)
+                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(2f, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
+            else if (transform.position.x > 2)
+                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(20f, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
+            else
+                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(transform.position.x, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
+
+            //check every frame if player is on ground or not
+            isGrounded = Physics.CheckSphere(_GroundCheck.position, _raduisCheckGround, Groundmask);
+            if (isGrounded && velocity.y < 0)
+                velocity.y = -2f;
+
+
+            //Move the player in forward direction automatically
+            controller.Move(transform.forward * _speed_Movement_forward * Time.deltaTime);
+
+
+            //Move the player in x axis
+            if (Input.touchCount > 0)
             {
+                touch = Input.GetTouch(0);
+                if (touch.phase == TouchPhase.Moved)
+                {
 
-                float x = touch.deltaPosition.x * Time.deltaTime;
-                moving = Vector3.right * x;
-                controller.Move(moving * _speed_Movement_X * Time.deltaTime);
+                    float x = touch.deltaPosition.x * Time.deltaTime;
+                    moving = Vector3.right * x;
+                    controller.Move(moving * _speed_Movement_X * Time.deltaTime);
 
 
+                }
             }
+
+            //smooth fall to the ground
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
+
         }
-
-        //smooth fall to the ground
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-
     }
-
     //Jump system
     public void JumpSystem()
     {
