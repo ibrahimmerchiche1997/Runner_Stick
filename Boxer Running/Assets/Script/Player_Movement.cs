@@ -28,7 +28,7 @@ public class Player_Movement : MonoBehaviour
 
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         //Camera follower system
         if (transform.position.x < 2f)
