@@ -10,7 +10,7 @@ public class Effects_System : MonoBehaviour
     public static bool AllowToPlay = false;
 
 
-    float doscal_timer_txt = 3.9277f;
+    float doscal_timer_txt = 1f;
 
 
     //-------- Timer Variables -------\\

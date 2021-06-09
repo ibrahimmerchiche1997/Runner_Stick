@@ -32,15 +32,15 @@ public class Player_Movement : MonoBehaviour
     {
         if (Effects_System.AllowToPlay)
         {
-
+           
 
             //Camera follower system
-            if (transform.position.x < 0f)
-                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(2f, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
-            else if (transform.position.x > 2)
-                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(20f, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
+            if (transform.position.x < -3f)
+                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(-1f, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
+            else if (transform.position.x > 3)
+                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(1f, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
             else
-                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(transform.position.x, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
+                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(0, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
 
             //check every frame if player is on ground or not
             isGrounded = Physics.CheckSphere(_GroundCheck.position, _raduisCheckGround, Groundmask);
@@ -50,7 +50,7 @@ public class Player_Movement : MonoBehaviour
 
             //Move the player in forward direction automatically
             controller.Move(transform.forward * _speed_Movement_forward * Time.deltaTime);
-
+           
 
             //Move the player in x axis
             if (Input.touchCount > 0)
