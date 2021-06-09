@@ -32,11 +32,11 @@ public class Player_Movement : MonoBehaviour
     {
         //Camera follower system
         if (transform.position.x < 2f)
-            main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(2f, transform.position.y+7 , transform.position.z+t), le * Time.deltaTime);
+            main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(2f, transform.position.y+1 , transform.position.z+t), le * Time.deltaTime);
         else if (transform.position.x > 20)
-            main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(20f, transform.position.y+7 , transform.position.z +t), le * Time.deltaTime);
+            main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(20f, transform.position.y+1 , transform.position.z +t), le * Time.deltaTime);
         else
-            main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(transform.position.x, transform.position.y + 7, transform.position.z + t), le * Time.deltaTime);
+            main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z + t), le * Time.deltaTime);
 
         //check every frame if player is on ground or not
         isGrounded = Physics.CheckSphere(_GroundCheck.position, _raduisCheckGround, Groundmask);
@@ -72,6 +72,8 @@ public class Player_Movement : MonoBehaviour
     //Jump system
     public void JumpSystem()
     {
+        Debug.Log("rrr");
+
         if (isGrounded)
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
