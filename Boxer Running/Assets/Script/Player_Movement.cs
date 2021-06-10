@@ -35,9 +35,9 @@ public class Player_Movement : MonoBehaviour
            
 
             //Camera follower system
-            if (transform.position.x < -3f)
+            if (transform.position.x < -1f)
                 main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(-1f, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
-            else if (transform.position.x > 3)
+            else if (transform.position.x > 1)
                 main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(1f, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
             else
                 main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(0, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);

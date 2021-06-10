@@ -2128,7 +2128,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d71f0e09acb233b4cbaae4d2283f9231, type: 2}
+  - {fileID: 2100000, guid: e14d5585398f2bc4eabc2b9a694d93e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3647,8 +3647,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067026799463738014}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -2.73, y: -3.8, z: 21.700005}
-  m_LocalScale: {x: 384.6165, y: 261.5603, z: 163.86435}
+  m_LocalPosition: {x: -2.73, y: -3.8, z: -887.03}
+  m_LocalScale: {x: 384.6165, y: 2709.8914, z: 163.86435}
   m_Children: []
   m_Father: {fileID: 459607970}
   m_RootOrder: 0
@@ -4096,7 +4096,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d71f0e09acb233b4cbaae4d2283f9231, type: 2}
+  - {fileID: 2100000, guid: e14d5585398f2bc4eabc2b9a694d93e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4351,7 +4351,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d71f0e09acb233b4cbaae4d2283f9231, type: 2}
+  - {fileID: 2100000, guid: e14d5585398f2bc4eabc2b9a694d93e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4390,7 +4390,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d71f0e09acb233b4cbaae4d2283f9231, type: 2}
+  - {fileID: 2100000, guid: e14d5585398f2bc4eabc2b9a694d93e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4429,7 +4429,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d71f0e09acb233b4cbaae4d2283f9231, type: 2}
+  - {fileID: 2100000, guid: e14d5585398f2bc4eabc2b9a694d93e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5381,8 +5381,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   jumpHeight: 3
-  t: -15
-  le: 10
+  t: -2
+  le: 2
   main: {fileID: 1295346522}
   Run_Anim: {fileID: 919132149227257051}
 --- !u!143 &8980086613424668502
@@ -5411,7 +5411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8980086613424668500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.3, z: -19.6}
+  m_LocalPosition: {x: 0, y: 2.3, z: -2441}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8980086613969360050}
