@@ -1,7 +1,33 @@
-﻿using System.Collections;
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////                                                                                                                    //////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    ///////////////////////////////////////
+////////////////////////////                    /////////////////////////////////////////////////////                      ///////////    /////////////////////////////////////
+////////////////////////////                    /////////////////////////////////////////////////////                      //////////     //////////////////////////////////////
+////////////////////////////                    /////////////////////////////////////////////////////                      //////////     ///////////////////////////////////////
+////////////////////////////                    /////////////////////////////////////////////////////                      //////////     //////////////////////////////////////
+////////////////////////////                    /////////////////////////////////////////////////////                      /////////      ///////////////////////////////////////
+
+///////////////////////////////////////////////////////////              ///////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////              ///////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////              ///////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////              ///////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////              ///////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////              ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#region [[[Movement]]]
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using DG.Tweening;
+using TMPro;
 public class Player_Movement : MonoBehaviour
 {
     public ObstaclsSystem os;
@@ -24,23 +50,39 @@ public class Player_Movement : MonoBehaviour
     public float le;
     public Camera main;
     public Animator Run_Anim;
+    float x = 0;
+
+    // Health
+    static int health = 3;
+    static int damage = 1;
+    public Image[] healthBar;
+    public Image _damage_IMG;
 
 
+    //Coin Collector system
+  
+    Coins_Manager coins_Manager;
+
+
+    private void Start()
+    {
+        coins_Manager = FindObjectOfType<Coins_Manager>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (Effects_System.AllowToPlay)
         {
-           
 
-            //Camera follower system
-            if (transform.position.x < -1f)
-                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(-1f, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
-            else if (transform.position.x > 1)
-                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(1f, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
-            else
-                main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(0, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
+
+            ////Camera follower system
+            //if (transform.position.x < -1f)
+            //    main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(transform.position.x , transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
+            //else if (transform.position.x > 1)
+            //    main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(transform.position.x, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
+            //else
+            //    main.transform.position = Vector3.Lerp(main.transform.position, new Vector3(transform.position.x, transform.position.y + 3, transform.position.z + t), le * Time.deltaTime);
 
             //check every frame if player is on ground or not
             isGrounded = Physics.CheckSphere(_GroundCheck.position, _raduisCheckGround, Groundmask);
@@ -50,7 +92,7 @@ public class Player_Movement : MonoBehaviour
 
             //Move the player in forward direction automatically
             controller.Move(transform.forward * _speed_Movement_forward * Time.deltaTime);
-           
+
 
             //Move the player in x axis
             if (Input.touchCount > 0)
@@ -58,47 +100,64 @@ public class Player_Movement : MonoBehaviour
                 touch = Input.GetTouch(0);
                 if (touch.phase == TouchPhase.Moved)
                 {
-
-                    float x = touch.deltaPosition.x * Time.deltaTime;
+                    x = touch.deltaPosition.x * Time.deltaTime;
                     moving = Vector3.right * x;
                     controller.Move(moving * _speed_Movement_X * Time.deltaTime);
 
-
                 }
             }
-
-            //smooth fall to the ground
-            velocity.y += gravity * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
-
         }
+
+        //smooth fall to the ground
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
     }
+
     //Jump system
     public void JumpSystem()
     {
-        Debug.Log("rrr");
 
         if (isGrounded)
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-    }
-
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Finish") JumpSystem();
-
-        if (other.gameObject.tag == "Obstacls")
         {
-            // call obstacles system method
-            os.DestroyObstacle(other.transform);
-            StartCoroutine(SlowMotion());
+
+
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            //Play Animation
+            Run_Anim.SetBool("AllowToJump", true);
+
+            //  Run_Anim.SetBool("AllowToJump", false);
         }
     }
 
 
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Jumpper") JumpSystem();
 
+        if (other.gameObject.tag == "Obstacls")
+        {
+            Vibration.Vibrate(1);
+            Damage();
+            os.DestroyObstacle(other.transform);
+            StartCoroutine(SlowMotion());
+        }
+
+        if (other.gameObject.tag == "Coin")
+        {
+            coins_Manager.AddCoin(other.transform.position, 1);
+
+            coins_Manager.Collect_Coins(other.transform);
+            Destroy(other.gameObject);
+        
+        }
+    }
+
+
+  
+
+    
     //Slow motion Effect
     IEnumerator SlowMotion()
     {
@@ -113,8 +172,24 @@ public class Player_Movement : MonoBehaviour
         }
 
     }
+
+
+    //Dammage function when player hit an obstacle
+    public void Damage()
+    {
+        _damage_IMG.DOFade(1, .2f).OnComplete(() => _damage_IMG.DOFade(0, .2f));
+        health -= damage;
+        healthBar[health].enabled = false;
+        // check if health equal 0 
+        if (health == 0)
+        {
+            Debug.Log("die");
+            //Game Over
+            //Restart or Home
+        }
+    }
 }
 
-
+#endregion
 
 
